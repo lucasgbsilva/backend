@@ -1,0 +1,81 @@
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Form, Container } from "./style";
+import api from "../../services/api";
+import Logo from "../../assets/senac.png";
+const SignUp = () => {
+  const { id } = useParams();
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [type, settype] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!id) return;
+
+    async function getData() {
+        try{
+            const {data} = await api.get(`/usuarios/${id}`);
+            setEmail(data.email);
+            setSenha(data.senha);
+            settype(data.type);
+        }catch(err){
+            setError("Houve um problema ao carregar os dados do usuario:"+err);
+        }
+    }
+    getData();
+  }, [id]);
+
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (!email || !senha) {
+      setError("Preencha todos os dados para se cadastrar");
+    } else {
+      try {
+        if(!id){ 
+            await api.post("/signup", { email, senha, type });
+        }else {
+            await api.post(`/usuarios/${id}`, { email, senha, type });
+        }
+
+
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+        setError("Ocorreu um erro ao registrar sua conta.");
+      }
+    }
+  };
+  return (
+    <Container>
+      <Form onSubmit={handleSignUp}>
+        {error && <p>{error}</p>}
+        <img src={Logo} alt="logo_senac" />
+        <input
+        value={email}
+          type="email"
+          placeholder="Endereço de email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+        value={senha}
+          type="password"
+          placeholder="Senha"
+          onChange={(e) => setSenha(e.target.value)}
+        />
+        <input
+        value={type}
+          type="number"
+          placeholder="type de Acesso"
+          onChange={(e) => settype(e.target.value)}
+        />
+        <button type="submit">Cadastro de Usuário</button>
+        <Link to="/">Fazer Login</Link>
+      </Form>
+    </Container>
+  );
+};
+export default SignUp;
