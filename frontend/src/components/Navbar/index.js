@@ -13,8 +13,8 @@ const Navbar = () => {
       <NavItems show={showNav}>
         <Link to="/signup">Cadastro de Usuários</Link>
         <Link to="/usuarios">Usuários</Link>
-        <Link to="/produtos">Lista de Produtos</Link>
-        <Link to="/produto">Cadastro de Produto</Link>
+        <Link to="/movies">Lista de Movies</Link>
+        <Link to="/movie">Cadastro de Movies</Link>
         <Link to="/logout">Logout</Link>
         
       </NavItems>

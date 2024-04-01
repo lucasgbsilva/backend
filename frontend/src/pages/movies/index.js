@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaWindowClose, FaExclamation } from "react-icons/fa";
 import api from "../../services/api";
 import Navbar from "../../components/Navbar";
-import { MovieContainer } from "./style";
+import { UsuarioContainer } from "../Usuarios/style";
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState("");
@@ -22,41 +22,40 @@ const Movies = () => {
   };
   const handleDelete = async (e, id, index) => {
     e.persist();
+    let response = "";
     try {
-      let response = await api.delete(`/movie/${id}`);
+      response = await api.delete(`/movies/${id}`);
       const novosMovies = [...movies];
       novosMovies.splice(index, 1);
       setMovies(novosMovies);
     } catch (err) {
-      setError(
-        "Houve um problema ao excluir os dados: " + err.response.data.message
-      );
+      setError("Houve um problema ao excluir os dados: " + response);
     }
   };
   return (
     <div>
       <Navbar />
-      <h1>Listagem de Film</h1>
+      <h1>Listagem de Movies</h1>
       {error && <p>{error}</p>}
-      <MovieContainer>
+      <UsuarioContainer>
         <div>
           <span>ID</span>
           <span>Nome</span>
-          <span>Valor</span>
+          <span>Preço</span>
           <span>Editar</span>
           <span>Excluir</span>
         </div>
         {movies.map((movie, index) => (
-          <div key={String(movie.mov)}>
+          <div key={String(movie.idmovie)}>
             <span>{movie.idmovie}</span>
-            <span>{movie.name}</span>
-            <span>{movie.acceptabeNames}</span>
-            <Link to={`/movies/${movie.idmovie}`}>
+            <span>{movie.nome}</span>
+            <span>{`R$ ${movie.valor.toFixed(2)}`}</span>
+            <Link to={`/movie/${movie.idmovie}`}>
               <FaEdit size={16} />
             </Link>
             <Link
               onClick={handleDeleteAsk}
-              to={`/movies/${movie.idmovie}`}
+              to={`/movie/${movie.idmovie}`}
             >
               <FaWindowClose size={16} />
             </Link>
@@ -68,8 +67,9 @@ const Movies = () => {
             />
           </div>
         ))}
-      </MovieContainer>
+      </UsuarioContainer>
     </div>
   );
 };
 export default Movies;
+ 

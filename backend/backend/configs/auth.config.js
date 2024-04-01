@@ -1,4 +1,4 @@
 //Palavra secreta (segredo)
 module.exports = {
-  secret: "senac-chave-secreta",
+  secret: "cinefilo-chave-secreta",
 };

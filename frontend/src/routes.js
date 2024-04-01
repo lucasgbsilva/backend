@@ -11,14 +11,14 @@ import MainPage from "./pages/MainPage";
 import Logout from "./pages/Logout";
 import SignUp from "./pages/SignUp";
 import Usuarios from "./pages/Usuarios";
-import Produtos from "./pages/Produtos";
-import Produto from "./pages/movie";
+import Movies from "./pages/movies";
+import Movie from "./pages/movie";
 const LoginPage = () => <Login />;
 const SignUpPage = () => <SignUp />;
 const LogOutPage = () => <Logout />;
 const UsuariosPage = () => <Usuarios />;
-const ProdutosPage = () => <Produtos />;
-const ProdutoPage = () => <Produto />;
+const MoviesPage = () => <Movies />;
+const MoviePage = () => <Movie />;
 const NotFoundPage = () => <h1>Página não encontrada.</h1>;
 const AppPage = () => {
   if (!isAuthenticated()) {
@@ -35,8 +35,8 @@ const Rotas = () => (
       <Route path="/app" element={<AppPage />} />
       <Route path="/usuarios" element={<UsuariosPage />} />
       <Route path="/usuarios/:id" element={<SignUpPage />} />
-      <Route path="/produtos" element={<ProdutosPage />} />
-      <Route path="/produto" element={<ProdutoPage />} />
+      <Route path="/movies" element={<MoviesPage />} />
+      <Route path="/movie" element={<MoviePage />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
