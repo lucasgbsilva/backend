@@ -49,7 +49,7 @@ const Usuarios = () => {
  <div key={String(usuario.idusuario)}>
  <span>{usuario.idusuario}</span>
  <span>{usuario.email}</span>
- <span>{usuario.type}</span>
+ <span>{usuario.tipo}</span>
  <Link to={`/usuarios/${usuario.idusuario}`}>
  <FaEdit size={16} />
  </Link>

@@ -5,6 +5,8 @@ const MovieModel = function (movie) {
   this.name = movie.name;
   this.acceptableNames = movie.acceptableNames;
   this.emoji = movie.emoji;
+  this.tipo = movie.tipo;
+
 };
 
 MovieModel.create = (movie, result) => {
@@ -50,8 +52,8 @@ MovieModel.findById = (id, result) => {
 
 MovieModel.updateById = (id, movie, result) => {
   sql.query(
-    "UPDATE movies SET name = ?, acceptableNames = ?, emoji = ?  WHERE idmovie = ? ",
-    [movie.name, movie.acceptableNames, movie.emoji, id],
+    "UPDATE movies SET name = ?, acceptableNames = ?, emoji = ?, tipo = ? WHERE idmovie = ? ",
+    [movie.name, movie.acceptableNames, movie.emoji, movie.tipo, id],
     (err, res) => {
       if (err) {
         console.log("erro: ", err);
@@ -59,7 +61,7 @@ MovieModel.updateById = (id, movie, result) => {
       } else if (res.affectedRows == 0) {
         result({ type: "not_found" }, null);
       } else {
-        console.log("Movie atualizado: ", {
+        console.log("Filme atualizado: ", {
           idmovie: id,
           ...movie,
         });

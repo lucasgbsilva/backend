@@ -2,7 +2,7 @@ const sql = require("../configs/db");
 const Usuario = function (usuario) {
   this.email = usuario.email;
   this.senha = usuario.senha;
-  this.type = usuario.type;
+  this.tipo = usuario.tipo;
 };
 Usuario.create = (usuario, result) => {
   sql.query("INSERT INTO usuarios SET ?", usuario, (err, res) => {
@@ -39,8 +39,8 @@ Usuario.getAll = (result) => {
 //Atualizar usuario por id
 Usuario.updateById = (id, usuario, result) => {
   sql.query(
-    "UPDATE usuarios SET email = ?, senha = ?, type = ? WHERE idusuario = ?",
-    [usuario.email, usuario.senha, usuario.type, id],
+    "UPDATE usuarios SET email = ?, senha = ?, tipo = ? WHERE idusuario = ?",
+    [usuario.email, usuario.senha, usuario.tipo, id],
     (err, res) => {
       if (err) {
         console.log("erro: ", err);

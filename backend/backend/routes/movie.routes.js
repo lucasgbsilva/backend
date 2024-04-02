@@ -3,7 +3,7 @@ module.exports = (app) => {
   const auth = require("../middleawares/auth_jwt_middeaware");
 
   app.post(
-    "/movie",
+    "/movies",
     [auth.verifyToken],
     movieController.create
   );

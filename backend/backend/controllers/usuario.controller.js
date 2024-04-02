@@ -4,15 +4,15 @@ const config = require("../configs/auth.config.js");
 const jwt = require("jsonwebtoken");
 
 exports.signUp = (req, res) => {
-  if (!req.body.email || !req.body.senha || !req.body.type) {
+  if (!req.body.email || !req.body.senha || !req.body.tipo) {
     res.status(400).send({
-      message: "E-mail, senha ou type não enviados.",
+      message: "E-mail, senha ou tipo não enviados.",
     });
   } else {
     const usuario = new usuarioModel({
       email: req.body.email,
       senha: bcrypt.hashSync(req.body.senha, 8),
-      type: req.body.type,
+      tipo: req.body.tipo,
     });
     usuarioModel.create(usuario, (err, data) => {
       if (err) {
@@ -57,7 +57,7 @@ exports.signIn = (req, res) => {
             accessToken: token,
             id: data.idusuario,
             email: data.email,
-            type: data.type,
+            tipo: data.tipo,
           });
         }
       }
@@ -76,9 +76,9 @@ exports.findAll = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-  if (!req.body.email || !req.body.senha || !req.body.type) {
+  if (!req.body.email || !req.body.senha || !req.body.tipo) {
     res.status(400).send({
-      message: "E-mail, senha ou type não enviados.",
+      message: "E-mail, senha ou tipo não enviados.",
     });
   } else {
     const usuario = new usuarioModel({

@@ -8,7 +8,7 @@ const SignUp = () => {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [type, settype] = useState("");
+  const [tipo, setTipo] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const SignUp = () => {
             const {data} = await api.get(`/usuarios/${id}`);
             setEmail(data.email);
             setSenha(data.senha);
-            settype(data.type);
+            setTipo(data.tipo);
         }catch(err){
             setError("Houve um problema ao carregar os dados do usuario:"+err);
         }
@@ -36,9 +36,9 @@ const SignUp = () => {
     } else {
       try {
         if(!id){ 
-            await api.post("/signup", { email, senha, type });
+            await api.post("/signup", { email, senha, tipo });
         }else {
-            await api.post(`/usuarios/${id}`, { email, senha, type });
+            await api.post(`/usuarios/${id}`, { email, senha, tipo });
         }
 
 
@@ -67,10 +67,10 @@ const SignUp = () => {
           onChange={(e) => setSenha(e.target.value)}
         />
         <input
-        value={type}
-          type="number"
-          placeholder="type de Acesso"
-          onChange={(e) => settype(e.target.value)}
+        value={tipo}
+          type="text"
+          placeholder="tipo de Acesso"
+          onChange={(e) => setTipo(e.target.value)}
         />
         <button type="submit">Cadastro de Usuário</button>
         <Link to="/">Fazer Login</Link>

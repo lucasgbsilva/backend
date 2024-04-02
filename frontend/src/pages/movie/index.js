@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Container } from "./style";
 import api from "../../services/api";
 import Logo from "../../assets/senac.png";
@@ -8,34 +8,35 @@ const Movie = () => {
   const [name, setName] = useState("");
   const [acceptabeNames, setAcceptableNames] = useState("");
   const [emoji, setEmoji] = useState("");
-  const [type, setType] = useState("");
+  const [tipo, setTipo] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     if (!id) return;
     async function getData() {
       try {
-        const { data } = await api.get(`/movies/${id}`);
+        const { data } = await api.get(`/movies/${id}`); // Correção aqui: mudar para GET
         setName(data.name);
-        setAcceptableNames(data.acceptabeNames);
+        setAcceptableNames(data.acceptableNames);
         setEmoji(data.emoji);
-        setType(data.type);
+        setTipo(data.tipo);
       } catch (err) {
-        setError("Houve um problema ao carregar os dados do usuario: " + err);
+        setError("Houve um problema ao carregar os dados do filme: " + err.response.data.message);
       }
     }
     getData();
   }, [id]);
+  
   const handleMovie = async (e) => {
     e.preventDefault();
-    if (!name || !acceptabeNames || !emoji || !type) {
+    if (!name || !acceptabeNames || !emoji || !tipo) {
       setError("Preencha todos os dados para se cadastrar");
     } else {
       try {
         if (!id) {
-          await api.post("/movies", { name, acceptabeNames, emoji, type });
+          await api.post("/movies", { name, acceptabeNames, emoji, tipo });
         } else {
-          await api.put(`/movies/${id}`, { name, acceptabeNames, emoji, type });
+          await api.put(`/movies/${id}`, { name, acceptabeNames, emoji, tipo });
         }
         navigate(-1);
       } catch (err) {
@@ -71,10 +72,10 @@ const Movie = () => {
           onChange={(e) => setEmoji(e.target.value)}
         />
         <input
-          value={type}
+          value={tipo}
           type="text"
-          placeholder="type"
-          onChange={(e) => setType(e.target.value)}
+          placeholder="tipo"
+          onChange={(e) => setTipo(e.target.value)}
         />
         <button type="submit">Salvar</button>
         <button type="button" onClick={handleCancel}>

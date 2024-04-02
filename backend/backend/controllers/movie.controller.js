@@ -1,7 +1,7 @@
 const MovieModel = require("../models/movie.model");
 
 exports.create = (req, res) => {
-    if (!req.body.name || !req.body.acceptableNames || !req.body.emoji || !req.body.type) {
+    if (!req.body.name || !req.body.acceptableNames || !req.body.emoji || !req.body.tipo) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição vazia."
         });
@@ -10,7 +10,7 @@ exports.create = (req, res) => {
             name: req.body.name,
             acceptableNames: req.body.acceptableNames,
             emoji: req.body.emoji,
-            type: req.body.type
+            tipo: req.body.tipo
         });
         MovieModel.create(movie, (err, data) => {
             if (err) {
@@ -56,7 +56,7 @@ exports.findById = (req, res) => {
 }
 
 exports.update = (req, res) => {
-    if (!req.body.name || !req.body.acceptableNames || !req.body.emoji) {
+    if (!req.body.name || !req.body.acceptableNames || !req.body.emoji || !req.body.tipo) {
         res.status(400).send({
             message: "Conteúdo do corpo da requisição vazia."
         });
@@ -64,7 +64,8 @@ exports.update = (req, res) => {
         const movie = new MovieModel({
             name: req.body.name,
             acceptableNames: req.body.acceptableNames,
-            emoji: req.body.emoji
+            emoji: req.body.emoji,
+            tipo: req.body.tipo
         });
         MovieModel.updateById(req.params.id, movie, (err, data) => {
             if (err) {
